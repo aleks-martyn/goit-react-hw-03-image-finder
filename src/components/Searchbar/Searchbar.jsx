@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import {
   Header,
@@ -38,10 +38,11 @@ export const Searchbar = props => {
           <Input
             type="text"
             name="searchQuery"
-            autocomplete="off"
-            autofocus
+            autoComplete="false"
+            autoFocus
             placeholder="Search images and photos"
           />
+          <ErrorMessage name="searchQuery" component="div" />
         </StyledForm>
       </Header>
     </Formik>
