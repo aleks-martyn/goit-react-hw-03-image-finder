@@ -17,9 +17,9 @@ const initialValues = {
   searchQuery: '',
 };
 
-export const Searchbar = props => {
-  const handleSubmit = (values, { resetForm }) => {
-    props.onSubmit(values);
+export const Searchbar = ({ onSubmit }) => {
+  const handleSubmit = ({ searchQuery }, { resetForm }) => {
+    onSubmit(searchQuery);
     resetForm();
   };
 
