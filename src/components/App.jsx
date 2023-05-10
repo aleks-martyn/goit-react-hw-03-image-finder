@@ -3,8 +3,12 @@ import { Searchbar } from './Searchbar';
 import { Container } from './App.styled';
 
 export class App extends Component {
-  formSubmitHandler = formData => {
-    console.log(formData);
+  state = {
+    searchQuery: '',
+  };
+
+  formSubmitHandler = searchQuery => {
+    this.setState({searchQuery});
   };
 
   render() {
