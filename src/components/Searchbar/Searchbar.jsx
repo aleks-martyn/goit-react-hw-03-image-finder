@@ -19,6 +19,10 @@ const initialValues = {
 
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmit = ({ searchQuery }, { resetForm }) => {
+    if (searchQuery.trim() === '') {
+      alert('Введіть запит');
+      return;
+    }
     onSubmit(searchQuery);
     resetForm();
   };
