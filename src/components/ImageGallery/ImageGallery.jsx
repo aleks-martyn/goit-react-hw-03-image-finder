@@ -4,7 +4,7 @@ import { GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
   state = {
-    data: '',
+    data: {},
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,12 +21,13 @@ export class Gallery extends Component {
   }
 
   render() {
-    const { data } = this.state;
+    const { data: {hits} } = this.state;
+
     return (
       <GalleryList>
-        {data.hits &&
-          data.hits.map(({ id, webformatURL, tags }) => (
-            <GalleryItem key={id} src={webformatURL} alt={tags} />
+        {hits &&
+          hits.map(({ id, webformatURL, tags }) => (
+            <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
           ))}
       </GalleryList>
     );
