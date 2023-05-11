@@ -5,8 +5,8 @@ import { GalleryList } from './ImageGallery.styled';
 export const Gallery = ({ images }) => {
   return (
     <GalleryList>
-      {images.map(({ id, url, description }) => (
-        <GalleryItem key={id} src={url} alt={description} />
+      {images.map(({ id, preview, description }) => (
+        <GalleryItem key={id} src={preview} alt={description} />
       ))}
     </GalleryList>
   );
