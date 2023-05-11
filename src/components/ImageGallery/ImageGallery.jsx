@@ -6,6 +6,7 @@ export class Gallery extends Component {
   state = {
     data: {},
     loading: false,
+    error: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -17,8 +18,16 @@ export class Gallery extends Component {
       fetch(
         `https://pixabay.com/api/?key=34753059-f7902d1f02de9c533025c1a5e&q=${nextSearchQuery}&image_type=photo`
       )
-        .then(res => res.json())
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          return Promise.reject(
+            new Error(`За запитом ${nextSearchQuery} нічого не знайдено.`)
+          );
+        })
         .then(data => this.setState({ data }))
+        .catch(error => this.setState({ error }))
         .finally(() => this.setState({ loading: false }));
     }
   }
@@ -26,12 +35,17 @@ export class Gallery extends Component {
   render() {
     const {
       data: { hits },
+      loading,
+      error,
     } = this.state;
+
+    const { searchQuery } = this.props;
 
     return (
       <GalleryList>
-        {this.state.loading && <div>Йде запит...</div>}
-        {!this.props.searchQuery && <div>Введіть пошуковий запит.</div>}
+        {error && <h1>{error.message}</h1>}
+        {loading && <div>Йде запит...</div>}
+        {!searchQuery && <div>Введіть пошуковий запит.</div>}
         {hits &&
           hits.map(({ id, webformatURL, tags }) => (
             <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
