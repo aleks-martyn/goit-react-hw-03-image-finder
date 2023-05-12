@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { GalleryItem } from './ImageGalleryItem';
 import { LoadMoreBtn } from './Button';
 import { Spinner } from './Loader';
-import imagesAPI from '../services/images-api';
+import imagesAPI from './services/images-api';
 import { Wrap, GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
@@ -20,15 +20,8 @@ export class Gallery extends Component {
     if (prevSearchQuery !== nextSearchQuery) {
       this.setState({ status: 'pending' });
 
-      fetch(
-        `https://pixabay.com/api/?key=34753059-f7902d1f02de9c533025c1a5e&q=${nextSearchQuery}&image_type=photo`
-      )
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          return Promise.reject(new Error('Сталася помилка.'));
-        })
+      imagesAPI
+        .fetchImages(nextSearchQuery)
         .then(data => this.setState({ data, status: 'resolved' }))
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
