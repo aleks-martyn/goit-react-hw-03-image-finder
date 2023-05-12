@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { GalleryItem } from './ImageGalleryItem';
 import { LoadMoreBtn } from './Button';
+import { Spinner } from './Loader';
 import { Wrap, GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
