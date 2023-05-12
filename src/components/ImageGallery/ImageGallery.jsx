@@ -6,8 +6,8 @@ import { Wrap, GalleryList } from './ImageGallery.styled';
 export class Gallery extends Component {
   state = {
     data: {},
-    loading: false,
     error: null,
+    status: 'idle',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -15,7 +15,8 @@ export class Gallery extends Component {
     const nextSearchQuery = this.props.searchQuery;
 
     if (prevSearchQuery !== nextSearchQuery) {
-      this.setState({ loading: true, data: {} });
+      this.setState({ status: 'pending' });
+
       fetch(
         `https://pixabay.com/api/?key=34753059-f7902d1f02de9c533025c1a5e&q=${nextSearchQuery}&image_type=photo`
       )
@@ -27,9 +28,8 @@ export class Gallery extends Component {
             new Error(`За запитом ${nextSearchQuery} нічого не знайдено.`)
           );
         })
-        .then(data => this.setState({ data }))
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ loading: false }));
+        .then(data => this.setState({ data, status: 'resolved' }))
+        .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
 
@@ -40,26 +40,34 @@ export class Gallery extends Component {
   render() {
     const {
       data: { hits },
-      loading,
       error,
+      status,
     } = this.state;
 
-    const { searchQuery } = this.props;
+    if (status === 'idle') {
+      return <div>Введіть пошуковий запит.</div>;
+    }
 
-    return (
-      <Wrap>
-        <GalleryList>
-          {hits && hits.length === 0 && <p>За запитом нічого не знайдено</p>}
-          {error && <h1>{error.message}</h1>}
-          {loading && <div>Йде запит...</div>}
-          {!searchQuery && <div>Введіть пошуковий запит.</div>}
-          {hits &&
-            hits.map(({ id, webformatURL, tags }) => (
+    if (status === 'pending') {
+      return <div>Йде запит...</div>;
+    }
+
+    if (status === 'rejected') {
+      return <h1>{error.message}</h1>;
+    }
+    
+    if (status === 'resolved') {
+      return (
+        <Wrap>
+          <GalleryList>
+            {hits.length === 0 && <p>За запитом нічого не знайдено</p>}
+            {hits.map(({ id, webformatURL, tags }) => (
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             ))}
-        </GalleryList>
-        {hits && hits.length !== 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
-      </Wrap>
-    );
+          </GalleryList>
+          {hits.length !== 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
+        </Wrap>
+      );
+    }
   }
 }
