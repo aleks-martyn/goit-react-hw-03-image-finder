@@ -33,6 +33,10 @@ export class Gallery extends Component {
     }
   }
 
+  btnClickHandler = event => {
+    console.log(event);
+  };
+
   render() {
     const {
       data: { hits },
@@ -54,7 +58,7 @@ export class Gallery extends Component {
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             ))}
         </GalleryList>
-        <LoadMoreBtn onClick={this.btnClickHandler} />
+        {hits && <LoadMoreBtn onClick={this.btnClickHandler} />}
       </Wrap>
     );
   }
