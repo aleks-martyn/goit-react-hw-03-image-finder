@@ -2,7 +2,7 @@ import { RotatingLines } from 'react-loader-spinner';
 import { Wrap } from './Loader.styled';
 
 export const Spinner = () => (
-  <Wrap>
+  <Wrap role='alert'>
     <RotatingLines
       strokeColor="grey"
       strokeWidth="5"
