@@ -43,6 +43,7 @@ export class Gallery extends Component {
 
     return (
       <GalleryList>
+        {hits && hits.length === 0 && <p>За запитом нічого не знайдено</p>}
         {error && <h1>{error.message}</h1>}
         {loading && <div>Йде запит...</div>}
         {!searchQuery && <div>Введіть пошуковий запит.</div>}
