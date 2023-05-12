@@ -15,7 +15,7 @@ export class Gallery extends Component {
     const nextSearchQuery = this.props.searchQuery;
 
     if (prevSearchQuery !== nextSearchQuery) {
-      this.setState({ loading: true });
+      this.setState({ loading: true, data: {} });
       fetch(
         `https://pixabay.com/api/?key=34753059-f7902d1f02de9c533025c1a5e&q=${nextSearchQuery}&image_type=photo`
       )
@@ -58,7 +58,7 @@ export class Gallery extends Component {
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             ))}
         </GalleryList>
-        {hits && <LoadMoreBtn onClick={this.btnClickHandler} />}
+        {hits && hits.length !== 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
       </Wrap>
     );
   }
