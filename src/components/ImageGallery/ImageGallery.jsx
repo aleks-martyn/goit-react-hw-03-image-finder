@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { GalleryItem } from './ImageGalleryItem';
 import { LoadMoreBtn } from './Button';
 import { Spinner } from './Loader';
@@ -25,9 +26,7 @@ export class Gallery extends Component {
           if (response.ok) {
             return response.json();
           }
-          return Promise.reject(
-            new Error('Сталася помилка.')
-          );
+          return Promise.reject(new Error('Сталася помилка.'));
         })
         .then(data => this.setState({ data, status: 'resolved' }))
         .catch(error => this.setState({ error, status: 'rejected' }));
@@ -50,13 +49,13 @@ export class Gallery extends Component {
     }
 
     if (status === 'pending') {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     if (status === 'rejected') {
       return <h1>{error.message}</h1>;
     }
-    
+
     if (status === 'resolved') {
       return (
         <Wrap>
@@ -72,3 +71,7 @@ export class Gallery extends Component {
     }
   }
 }
+
+Gallery.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+};
