@@ -50,7 +50,7 @@ export class Gallery extends Component {
     }
 
     if (status === 'pending') {
-      return <div>Йде запит...</div>;
+      return <Spinner/>;
     }
 
     if (status === 'rejected') {
