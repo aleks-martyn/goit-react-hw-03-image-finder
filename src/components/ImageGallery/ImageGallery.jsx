@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { GalleryItem } from './ImageGalleryItem';
-import { GalleryList } from './ImageGallery.styled';
+import { LoadMoreBtn } from './Button';
+import { Wrap, GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
   state = {
@@ -42,16 +43,19 @@ export class Gallery extends Component {
     const { searchQuery } = this.props;
 
     return (
-      <GalleryList>
-        {hits && hits.length === 0 && <p>За запитом нічого не знайдено</p>}
-        {error && <h1>{error.message}</h1>}
-        {loading && <div>Йде запит...</div>}
-        {!searchQuery && <div>Введіть пошуковий запит.</div>}
-        {hits &&
-          hits.map(({ id, webformatURL, tags }) => (
-            <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
-          ))}
-      </GalleryList>
+      <Wrap>
+        <GalleryList>
+          {hits && hits.length === 0 && <p>За запитом нічого не знайдено</p>}
+          {error && <h1>{error.message}</h1>}
+          {loading && <div>Йде запит...</div>}
+          {!searchQuery && <div>Введіть пошуковий запит.</div>}
+          {hits &&
+            hits.map(({ id, webformatURL, tags }) => (
+              <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
+            ))}
+        </GalleryList>
+        <LoadMoreBtn onClick={this.btnClickHandler} />
+      </Wrap>
     );
   }
 }
