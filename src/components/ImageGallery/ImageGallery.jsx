@@ -25,7 +25,7 @@ export class Gallery extends Component {
             return response.json();
           }
           return Promise.reject(
-            new Error(`За запитом ${nextSearchQuery} нічого не знайдено.`)
+            new Error('Сталася помилка.')
           );
         })
         .then(data => this.setState({ data, status: 'resolved' }))
@@ -60,7 +60,7 @@ export class Gallery extends Component {
       return (
         <Wrap>
           <GalleryList>
-            {hits.length === 0 && <p>За запитом нічого не знайдено</p>}
+            {hits.length === 0 && <p>За цим запитом нічого не знайдено</p>}
             {hits.map(({ id, webformatURL, tags }) => (
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             ))}
