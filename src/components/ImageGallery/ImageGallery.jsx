@@ -59,7 +59,7 @@ export class Gallery extends Component {
               <GalleryItem key={id} webformatURL={webformatURL} tags={tags} />
             ))}
           </GalleryList>
-          {hits.length !== 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
+          {hits.length > 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
         </Wrap>
       );
     }
