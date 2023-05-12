@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GalleryItem } from './ImageGalleryItem';
 import { LoadMoreBtn } from './Button';
 import { Spinner } from './Loader';
+import imagesAPI from '../services/images-api';
 import { Wrap, GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
