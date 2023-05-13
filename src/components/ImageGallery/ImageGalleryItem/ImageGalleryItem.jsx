@@ -7,7 +7,6 @@ export const GalleryItem = ({
   largeImageURL,
   openModal,
 }) => {
-  
   return (
     <Item>
       <Image
