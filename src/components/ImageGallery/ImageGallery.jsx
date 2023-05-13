@@ -15,17 +15,20 @@ export class Gallery extends Component {
     showModal: false,
     largeImageURL: '',
     tags: '',
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const prevSearchQuery = prevProps.searchQuery;
     const nextSearchQuery = this.props.searchQuery;
+    const prevPage = prevState.page;
+    const nextPage = this.state.page;
 
-    if (prevSearchQuery !== nextSearchQuery) {
+    if (prevSearchQuery !== nextSearchQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
 
       imagesAPI
-        .fetchImages(nextSearchQuery)
+        .fetchImages(nextSearchQuery, nextPage)
         .then(data => this.setState({ data, status: 'resolved' }))
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
