@@ -1,4 +1,4 @@
-function fetchImages(searchQuery) {
+function fetchImages(searchQuery, page) {
   const BASE_URL = 'https://pixabay.com/api/';
   const API_KEY = '34753059-f7902d1f02de9c533025c1a5e';
 
@@ -9,7 +9,7 @@ function fetchImages(searchQuery) {
     orientation: 'horizontal',
     safesearch: 'true',
     per_page: 12,
-    //page: `${page}`,
+    page: `${page}`,
   });
 
   const url = `${BASE_URL}?${searchParams}`;
