@@ -13,9 +13,8 @@ export class Gallery extends Component {
     error: null,
     status: 'idle',
     showModal: false,
-    largeImageURL:
-      'https://pixabay.com/get/g7fd6eecef32dae1936a824330d7549e54b6c0c8bc942c578e60905dc294f2eb8a7526ddec62f56f5a08defdac12d555040530b36dc1bb4dc52528f339fbbd7b5_1280.jpg',
-    tags: 'trees',
+    largeImageURL: '',
+    tags: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,9 +31,11 @@ export class Gallery extends Component {
     }
   }
 
-  toggleModal = () => {
-    this.setState(({ showModal}) => ({
+  toggleModal = (largeImageURL, tags) => {
+    this.setState(({ showModal }) => ({
       showModal: !showModal,
+      largeImageURL,
+      tags,
     }));
   };
 
@@ -51,7 +52,7 @@ export class Gallery extends Component {
       largeImageURL,
       tags,
     } = this.state;
-    console.log(largeImageURL);
+
     if (status === 'idle') {
       return <div>Введіть пошуковий запит.</div>;
     }
