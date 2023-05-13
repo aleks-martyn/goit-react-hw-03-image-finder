@@ -2,12 +2,7 @@ import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { BiSearch } from 'react-icons/bi';
-import {
-  Header,
-  StyledForm,
-  SearchButton,
-  Input,
-} from './Searchbar.styled';
+import { Header, StyledForm, SearchButton, Input } from './Searchbar.styled';
 
 const schema = yup.object().shape({
   searchQuery: yup.string().required(),
@@ -42,7 +37,7 @@ export const Searchbar = ({ onSubmit }) => {
           <Input
             type="text"
             name="searchQuery"
-            autoComplete="false"
+            autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
           />
