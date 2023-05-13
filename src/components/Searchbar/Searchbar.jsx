@@ -2,11 +2,15 @@ import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { BiSearch } from 'react-icons/bi';
-import { Header, StyledForm, SearchButton, Input } from './Searchbar.styled';
+import { Header, StyledForm, SearchButton, Input, ErrorText } from './Searchbar.styled';
 
 const schema = yup.object().shape({
   searchQuery: yup.string().required(),
 });
+
+const FormError = ({ name }) => {
+  return <ErrorMessage name={name} render={message => <ErrorText>{"It's a required field"}</ErrorText>} />;
+};
 
 const initialValues = {
   searchQuery: '',
@@ -41,7 +45,7 @@ export const Searchbar = ({ onSubmit }) => {
             autoFocus
             placeholder="Search images and photos"
           />
-          <ErrorMessage name="searchQuery" component="div" />
+          <FormError name="searchQuery" />
         </StyledForm>
       </Header>
     </Formik>
