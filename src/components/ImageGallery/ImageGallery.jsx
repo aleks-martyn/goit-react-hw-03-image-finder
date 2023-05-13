@@ -27,6 +27,8 @@ export class Gallery extends Component {
     if (prevSearchQuery !== nextSearchQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
 
+      if (prevSearchQuery !== nextSearchQuery) { this.setState({ hits: [], page: 1 }) };
+
       imagesAPI
         .fetchImages(nextSearchQuery, nextPage)
         .then(({ hits }) =>
