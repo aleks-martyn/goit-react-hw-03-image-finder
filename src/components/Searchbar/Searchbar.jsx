@@ -15,7 +15,7 @@ const initialValues = {
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmit = ({ searchQuery }, { resetForm }) => {
     if (searchQuery.trim() === '') {
-      alert('Введіть запит');
+      alert('Enter a search query!');
       return;
     }
     onSubmit(searchQuery);
