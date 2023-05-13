@@ -27,7 +27,9 @@ export class Gallery extends Component {
     if (prevSearchQuery !== nextSearchQuery || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
 
-      if (prevSearchQuery !== nextSearchQuery) { this.setState({ hits: [], page: 1 }) };
+      if (prevSearchQuery !== nextSearchQuery) {
+        this.setState({ hits: [], page: 1 });
+      }
 
       imagesAPI
         .fetchImages(nextSearchQuery, nextPage)
@@ -57,7 +59,7 @@ export class Gallery extends Component {
     const { hits, error, status, showModal, largeImageURL, tags } = this.state;
 
     if (status === 'idle') {
-      return <div>Введіть пошуковий запит.</div>;
+      return <h2>Enter a search query.</h2>;
     }
 
     if (status === 'pending') {
@@ -71,8 +73,8 @@ export class Gallery extends Component {
     if (status === 'resolved') {
       return (
         <Wrap>
+          {hits.length === 0 && <h2>Nothing was found for this query.</h2>}
           <GalleryList>
-            {hits.length === 0 && <p>За цим запитом нічого не знайдено.</p>}
             {hits.map(({ id, webformatURL, tags, largeImageURL }) => (
               <GalleryItem
                 key={id}
