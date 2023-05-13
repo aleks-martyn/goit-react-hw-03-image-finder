@@ -9,7 +9,7 @@ import { Wrap, GalleryList } from './ImageGallery.styled';
 
 export class Gallery extends Component {
   state = {
-    data: {},
+    hits: [],
     error: null,
     status: 'idle',
     showModal: false,
@@ -29,7 +29,12 @@ export class Gallery extends Component {
 
       imagesAPI
         .fetchImages(nextSearchQuery, nextPage)
-        .then(data => this.setState({ data, status: 'resolved' }))
+        .then(({ hits }) =>
+          this.setState(prevState => ({
+            hits: [...prevState.hits, ...hits],
+            status: 'resolved',
+          }))
+        )
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
@@ -47,14 +52,7 @@ export class Gallery extends Component {
   };
 
   render() {
-    const {
-      data: { hits },
-      error,
-      status,
-      showModal,
-      largeImageURL,
-      tags,
-    } = this.state;
+    const { hits, error, status, showModal, largeImageURL, tags } = this.state;
 
     if (status === 'idle') {
       return <div>Введіть пошуковий запит.</div>;
