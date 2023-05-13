@@ -13,15 +13,10 @@ export class Gallery extends Component {
     error: null,
     status: 'idle',
     showModal: false,
-    largeImageURL: "",
-    tags: "",
+    largeImageURL:
+      'https://pixabay.com/get/g7fd6eecef32dae1936a824330d7549e54b6c0c8bc942c578e60905dc294f2eb8a7526ddec62f56f5a08defdac12d555040530b36dc1bb4dc52528f339fbbd7b5_1280.jpg',
+    tags: 'trees',
   };
-
-  //componentDidMount() {
-  //  window.addEventListener('click', event => {
-  //    console.log(event.target)
-  //  });
-  //}
 
   componentDidUpdate(prevProps, prevState) {
     const prevSearchQuery = prevProps.searchQuery;
@@ -37,9 +32,10 @@ export class Gallery extends Component {
     }
   }
 
-  toggleModal = (largeImageURL, tags) => {
-    console.log(largeImageURL);
-    this.setState(({ showModal, largeImageURL, tags }) => ({ showModal: !showModal, largeImageURL, tags }));
+  toggleModal = () => {
+    this.setState(({ showModal}) => ({
+      showModal: !showModal,
+    }));
   };
 
   btnClickHandler = event => {
@@ -85,11 +81,8 @@ export class Gallery extends Component {
           </GalleryList>
           {hits.length > 0 && <LoadMoreBtn onClick={this.btnClickHandler} />}
           {showModal && (
-            <Modal>
-              <img
-                src={largeImageURL}
-                alt={tags}
-              />
+            <Modal onClose={this.toggleModal}>
+              <img src={largeImageURL} alt={tags} />
             </Modal>
           )}
         </Wrap>
