@@ -42,8 +42,8 @@ export class Gallery extends Component {
     }));
   };
 
-  btnClickHandler = event => {
-    console.log(event);
+  btnClickHandler = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   render() {
