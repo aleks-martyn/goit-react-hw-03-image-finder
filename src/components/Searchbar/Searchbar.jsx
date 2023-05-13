@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { BiSearch } from 'react-icons/bi';
 import {
   Header,
   StyledForm,
   SearchButton,
-  ButtonLabel,
   Input,
 } from './Searchbar.styled';
 
@@ -36,7 +36,7 @@ export const Searchbar = ({ onSubmit }) => {
       <Header>
         <StyledForm>
           <SearchButton type="submit">
-            <ButtonLabel>Search</ButtonLabel>
+            <BiSearch size="25" />
           </SearchButton>
 
           <Input
