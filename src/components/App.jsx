@@ -58,6 +58,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.formSubmitHandler} />
         {status === 'idle' && <h2>Enter a search query.</h2>}
         {status === 'pending' && <Spinner />}
+        {status === 'rejected' && <h1>{error.message}</h1>}
         <Gallery hits={hits} />
         {hits && hits.length > 0 && (
           <LoadMoreBtn onClick={this.btnClickHandler} />
