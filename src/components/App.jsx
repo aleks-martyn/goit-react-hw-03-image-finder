@@ -10,6 +10,7 @@ export class App extends Component {
   state = {
     searchQuery: '',
     page: 1,
+    total: 1,
     hits: [],
     error: null,
     status: 'idle',
@@ -26,10 +27,11 @@ export class App extends Component {
 
       imagesAPI
         .fetchImages(nextSearchQuery, nextPage)
-        .then(({ hits }) =>
+        .then(({ hits, total }) =>
           this.setState(prevState => ({
             hits: [...prevState.hits, ...hits],
             status: 'resolved',
+            total,
           }))
         )
         .catch(error => this.setState({ error, status: 'rejected' }));
@@ -40,6 +42,7 @@ export class App extends Component {
     this.setState({
       searchQuery,
       page: 1,
+      total: 1,
       error: null,
       hits: [],
       status: 'idle',
@@ -51,7 +54,7 @@ export class App extends Component {
   };
 
   render() {
-    const { hits, status, error } = this.state;
+    const { hits, status, error, total, page } = this.state;
 
     return (
       <Container>
@@ -65,7 +68,7 @@ export class App extends Component {
               <h2>Nothing was found for this query.</h2>
             )}
             <Gallery hits={hits} />
-            {hits && hits.length > 0 && (
+            {hits && total / 12 > page && (
               <LoadMoreBtn onClick={this.btnClickHandler} />
             )}
           </Wrap>
