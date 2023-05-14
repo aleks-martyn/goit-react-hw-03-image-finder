@@ -4,7 +4,7 @@ import { Gallery } from './ImageGallery';
 import imagesAPI from './services/images-api';
 import { LoadMoreBtn } from './Button';
 import { Spinner } from './Loader';
-import { Container } from './App.styled';
+import { Container, Wrap } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -60,12 +60,15 @@ export class App extends Component {
         {status === 'pending' && <Spinner />}
         {status === 'rejected' && <h1>{error.message}</h1>}
         {status === 'resolved' && (
-          <div>
+          <Wrap>
+            {hits && hits.length === 0 && (
+              <h2>Nothing was found for this query.</h2>
+            )}
             <Gallery hits={hits} />
             {hits && hits.length > 0 && (
               <LoadMoreBtn onClick={this.btnClickHandler} />
             )}
-          </div>
+          </Wrap>
         )}
       </Container>
     );
