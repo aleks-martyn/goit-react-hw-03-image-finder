@@ -25,9 +25,6 @@ export class Gallery extends Component {
 
     return (
       <Wrap>
-        {hits && hits.length === 0 && (
-          <h2>Nothing was found for this query.</h2>
-        )}
         <GalleryList>
           {hits &&
             hits.map(({ id, webformatURL, tags, largeImageURL }) => (
