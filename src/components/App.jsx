@@ -10,7 +10,7 @@ export class App extends Component {
   state = {
     searchQuery: '',
     page: 1,
-    total: 1,
+    total: null,
     hits: [],
     error: null,
     status: 'idle',
@@ -42,7 +42,7 @@ export class App extends Component {
     this.setState({
       searchQuery,
       page: 1,
-      total: 1,
+      total: null,
       error: null,
       hits: [],
       status: 'idle',
