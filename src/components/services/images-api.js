@@ -1,6 +1,6 @@
-function fetchImages(searchQuery, page) {
+async function fetchImages(searchQuery, page) {
   const BASE_URL = 'https://pixabay.com/api/';
-  const API_KEY = '34753059-f7902d1f02de9c533025c1a5e';
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const searchParams = new URLSearchParams({
     key: `${API_KEY}`,
